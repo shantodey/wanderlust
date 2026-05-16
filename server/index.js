@@ -44,7 +44,6 @@ async function run() {
         app.get('/destination/:id', async (req, res) => {
             const { id } = req.params;
             const result = await destinationCollection.findOne({ _id: new ObjectId(id) })
-            console.log(result);
             res.json(result)
         })
 
@@ -72,7 +71,12 @@ async function run() {
         })
 
 
-
+        // delete destination form database 
+         app.delete('/destination/:id', async (req, res) => {
+            const { id } = req.params;
+            const result = await destinationCollection.deleteOne({ _id: new ObjectId(id) })
+            res.json(result)
+        })
 
 
 

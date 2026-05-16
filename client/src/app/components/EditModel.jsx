@@ -1,8 +1,7 @@
 "use client";
 
-// import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField, FieldError, TextArea, Select, ListBox } from "@heroui/react";
-import { Mail, Edit2 } from "lucide-react";
+import {  Edit2 } from "lucide-react";
 
 export function EditModel({ destinations }) {
      const {_id, imageUrl, destinationName, country, price, duration, departureDate, description,category } = destinations;

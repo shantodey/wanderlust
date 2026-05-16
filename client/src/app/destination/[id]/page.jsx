@@ -1,9 +1,10 @@
 
 import { Button, Card, Input } from '@heroui/react';
-import { ArrowLeft, Edit2, Trash2, Star, Calendar, Check, ArrowRight, MapPin } from 'lucide-react';
+import { ArrowLeft, Trash2, Star, Calendar, Check, ArrowRight, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { EditModel } from '@/app/components/EditModel';
+import DeleteDestination from '@/app/components/DeleteDestination';
 
 const DestinationDetailPage = async ({params}) => {
     const {id}=await params
@@ -19,9 +20,7 @@ const DestinationDetailPage = async ({params}) => {
                 </Link>
                 <div className="flex gap-3">
                     <EditModel destinations={destinations}></EditModel>
-                    <Button variant="bordered"  className="border border-red-500 text-red-500 hover:bg-red-50 rounded-md text-sm font-medium">
-                       <Trash2 size={16} /> Cancel
-                    </Button>
+                    <DeleteDestination destinations={destinations}/>
                 </div>
             </div>
             <div className="w-full h-100 rounded-xl overflow-hidden mb-8">
