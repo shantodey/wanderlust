@@ -34,7 +34,13 @@ async function run() {
     const db=client.db("wanderlust");
     const destinationCollection= db.collection("destination");
 
-
+    // creating api for getting data form database
+    app.get('/destination',async(req,res)=>{
+        const result= await destinationCollection.find().toArray();
+        console.log(result);
+       res.json(result)
+    })
+    
     // sendign data to server
     app.post('/destination',async(req,res)=>{
         const destinationData=req.body;

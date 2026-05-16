@@ -9,7 +9,7 @@ const Navbar = () => {
             <nav className='flex justify-between p-4'>
                 <ul className='flex gap-8'>
                     <li><Link href={'/'}>Home</Link></li>
-                    <li><Link href={'/'}>Destinations</Link></li>
+                    <li><Link href={'/destination'}>Destinations</Link></li>
                     <li><Link href={'/'}>My Bookings</Link></li>
                     <li><Link href={'/add-destination'}>ADD Destinations</Link></li>
                 </ul>
