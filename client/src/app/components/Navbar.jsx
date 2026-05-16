@@ -13,10 +13,10 @@ const Navbar = () => {
                         </svg>
                     </label>
                     <ul className="hidden sm:flex gap-8 font-medium text-gray-600">
-                        <li><Link href="/" className="hover:text-black transition-colors">Home</Link></li>
-                        <li><Link href="/destination" className="hover:text-black transition-colors">Destinations</Link></li>
+                        <li><Link href={'/'} className="hover:text-black transition-colors">Home</Link></li>
+                        <li><Link href={"/destination"} className="hover:text-black transition-colors">Destinations</Link></li>
                         <li><Link href="/" className="hover:text-black transition-colors">My Bookings</Link></li>
-                        <li><Link href="/add-destination" className="hover:text-black transition-colors">ADD Destinations</Link></li>
+                        <li><Link href={"/add-destination"} className="hover:text-black transition-colors">ADD Destinations</Link></li>
                     </ul>
                     <div className="shrink-0 mx-auto sm:mx-0">
                         <Link href="/">
@@ -24,9 +24,9 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <ul className="hidden sm:flex gap-8 font-medium text-gray-600">
-                        <li><Link href="/" className="hover:text-black transition-colors">Profile</Link></li>
-                        <li><Link href="/" className="hover:text-black transition-colors">Login</Link></li>
-                        <li><Link href="/" className="hover:text-black transition-colors">Singup</Link></li>
+                        <li><Link href={'/'} className="hover:text-black transition-colors">Profile</Link></li>
+                        <li><Link href={"/login" }className="hover:text-black transition-colors">Login</Link></li>
+                        <li><Link href={"/singup"} className="hover:text-black transition-colors">Singup</Link></li>
                         <li><Link href="/" className="hover:text-black transition-colors">Admin</Link></li>
                     </ul>
 
