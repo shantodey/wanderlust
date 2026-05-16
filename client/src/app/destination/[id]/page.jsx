@@ -1,8 +1,9 @@
-import React from 'react';
+
 import { Button, Card, Input } from '@heroui/react';
 import { ArrowLeft, Edit2, Trash2, Star, Calendar, Check, ArrowRight, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { EditModel } from '@/app/components/EditModel';
 
 const DestinationDetailPage = async ({params}) => {
     const {id}=await params
@@ -17,11 +18,9 @@ const DestinationDetailPage = async ({params}) => {
                     <ArrowLeft size={16} /> Back to Destinations
                 </Link>
                 <div className="flex gap-3">
-                    <Button variant="bordered" startContent={<Edit2 size={16} />} className="border-gray-300 rounded-md text-sm font-medium">
-                        Edit
-                    </Button>
-                    <Button variant="bordered" startContent={<Trash2 size={16} />} className="border-red-200 text-red-500 hover:bg-red-50 rounded-md text-sm font-medium">
-                        Cancel
+                    <EditModel destinations={destinations}></EditModel>
+                    <Button variant="bordered"  className="border border-red-500 text-red-500 hover:bg-red-50 rounded-md text-sm font-medium">
+                       <Trash2 size={16} /> Cancel
                     </Button>
                 </div>
             </div>
@@ -54,7 +53,7 @@ const DestinationDetailPage = async ({params}) => {
                         <h2 className="text-xl font-bold mb-3">Highlights</h2>
                         <p className="text-gray-600 leading-relaxed text-sm mb-6">Discover the magic of Bali with pristine beaches, ancient temples, and vibrant culture. Experience luxury resorts, tropical landscapes, and unforgettable sunsets.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                            {/* {[
+                            {[
                                 "Luxury beachfront accommodation",
                                 "Traditional Balinese spa treatment",
                                 "Sunrise trek to Mount Batur",
@@ -62,10 +61,10 @@ const DestinationDetailPage = async ({params}) => {
                                 "Private beach dinner experience"
                             ].map((highlight, index) => (
                                 <div key={index} className="flex items-center gap-2.5 text-sm text-gray-700">
-                                    <Check size={16} className="text-emerald-500 flex-shrink-0" />
+                                    <Check size={16} className="text-emerald-500 shrink-0" />
                                     <span>{highlight}</span>
                                 </div>
-                            ))} */}
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -80,20 +79,20 @@ const DestinationDetailPage = async ({params}) => {
                                 </div>
                             </div>
                             <Input type="text" defaultValue="05/15/2026" variant="bordered" radius="sm" className="w-full font-medium" />
-                            <Button color="primary" size="lg" endContent={<ArrowRight size={18} />} className="w-full bg-sky-500 text-white font-medium rounded-md py-6 text-sm">
-                                Book Now
+                            <Button color="primary" size="lg" className="w-full bg-sky-500 text-white font-medium rounded-md py-6 text-sm">
+                             Book Now  <ArrowRight size={18} /> 
                             </Button>
                             <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
-                                {/* {[
+                                {[
                                     "Free cancellation up to 7 days",
                                     "Travel insurance included",
                                     "24/7 customer support"
                                 ].map((policy, index) => (
-                                    <div key={index} className="flex items-center gap-2 text-xs text-emerald-600 font-medium">
-                                        <Check size={14} />
+                                    <div key={index} className="flex items-center gap-2 text-xs  font-medium">
+                                        <Check size={14} className='text-emerald-600' />
                                         <span>{policy}</span>
                                     </div>
-                                ))} */}
+                                ))}
                             </div>
                         </Card.Content>
                     </Card>

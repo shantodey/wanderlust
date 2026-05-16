@@ -1,11 +1,11 @@
 // setting dns for not getting blocked by database
-const dns=require("node:dns");
-dns.setServers(["8.8.8.8","8.8.4.4"]);
+const dns = require("node:dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 
 const express = require('express')
-const dotenv=require('dotenv');
-const cors=require("cors");
+const dotenv = require('dotenv');
+const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 dotenv.config()
 
@@ -18,45 +18,58 @@ app.use(cors());
 app.use(express.json())
 
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
 async function run() {
-  try {
-    
-    await client.connect();
+    try {
 
-    // creating a database
-    const db=client.db("wanderlust");
-    const destinationCollection= db.collection("destination");
+        await client.connect();
 
-    // creating api for getting data form database
-    app.get('/destination',async(req,res)=>{
-        const result= await destinationCollection.find().toArray();
-       res.json(result)
-    })
+        // creating a database
+        const db = client.db("wanderlust");
+        const destinationCollection = db.collection("destination");
 
-    // 
-     app.get('/destination/:id',async(req,res)=>{
-        const {id}= req.params;
-        const result=await destinationCollection.findOne({_id:new ObjectId(id)})
-        console.log(result);
-       res.json(result)
-    })
-    
-    // sendign data to server
-    app.post('/destination',async(req,res)=>{
-        const destinationData=req.body;
-        console.log(destinationData);
-        
-       const result= await destinationCollection.insertOne(destinationData)
+        // creating api for getting data form database
+        app.get('/destination', async (req, res) => {
+            const result = await destinationCollection.find().toArray();
+            res.json(result)
+        })
 
-       res.json(result)
-    })
+        // getting data form database by id
+        app.get('/destination/:id', async (req, res) => {
+            const { id } = req.params;
+            const result = await destinationCollection.findOne({ _id: new ObjectId(id) })
+            console.log(result);
+            res.json(result)
+        })
+
+        // edting the data
+        app.patch('/destination/:id', async (req, res) => {
+            const { id } = req.params;
+            const updatedData = req.body;
+            console.log(updatedData);
+
+            const result = await destinationCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: updatedData }
+            )
+            res.json(result)
+        })
+
+        // sendign data to server
+        app.post('/destination', async (req, res) => {
+            const destinationData = req.body;
+            console.log(destinationData);
+
+            const result = await destinationCollection.insertOne(destinationData)
+
+            res.json(result)
+        })
 
 
 
@@ -65,17 +78,17 @@ async function run() {
 
 
 
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    //  await client.close();
-  }
+        await client.db("admin").command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    } finally {
+        //  await client.close();
+    }
 }
 run().catch(console.dir)
 app.get('/', (req, res) => {
-  res.send(`Server is Running on port ${PORT}`)
+    res.send(`Server is Running on port ${PORT}`)
 })
 
 app.listen(PORT, () => {
-  console.log(`Server is Running on port ${PORT}`)
+    console.log(`Server is Running on port ${PORT}`)
 })
