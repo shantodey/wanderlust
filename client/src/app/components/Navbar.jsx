@@ -11,7 +11,7 @@ const Navbar = () => {
                     <li><Link href={'/'}>Home</Link></li>
                     <li><Link href={'/'}>Destinations</Link></li>
                     <li><Link href={'/'}>My Bookings</Link></li>
-                    <li><Link href={'/'}>Admin</Link></li>
+                    <li><Link href={'/add-destination'}>ADD Destinations</Link></li>
                 </ul>
                 <div>
                     <Image src={'/assets/mainlogo.png'} width={162} height={24} alt='Website Logo'></Image>
