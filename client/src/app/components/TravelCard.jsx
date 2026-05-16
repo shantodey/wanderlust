@@ -1,10 +1,11 @@
 "use client";
 import { Card, Button } from "@heroui/react";
-import {MapPin,CalendarDays,ArrowUpRight,Star} from "lucide-react";
+import { MapPin, CalendarDays, ArrowUpRight, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const TravelCard = ({ trip }) => {
-    const {imageUrl,destinationName,country,price,duration}=trip
+    const { _id, imageUrl, destinationName, country, price, duration } = trip
     return (
         <Card className="w-full rounded-xl overflow-hidden shadow-none border-0 bg-white">
 
@@ -54,14 +55,16 @@ const TravelCard = ({ trip }) => {
                     <span className="text-[18px]">
                         {duration}</span>
                 </div>
+                <Link href={`/destination/${_id}`}>
 
-                <Button
-                    radius="none"
-                    variant="light"
-                    className="p-0 h-auto min-w-fit bg-transparent hover:bg-transparent text-[#08A9F8] text-2xl font-medium"
-                >
-                    BOOK NOW<ArrowUpRight size={24} />
-                </Button>
+                    <Button
+                        radius="none"
+                        variant="light"
+                        className="p-0 h-auto min-w-fit bg-transparent hover:bg-transparent text-[#08A9F8] text-2xl font-medium"
+                    >
+                        BOOK NOW<ArrowUpRight size={24} />
+                    </Button>
+                </Link>
             </div>
         </Card>
     );

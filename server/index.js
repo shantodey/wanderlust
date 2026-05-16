@@ -6,7 +6,7 @@ dns.setServers(["8.8.8.8","8.8.4.4"]);
 const express = require('express')
 const dotenv=require('dotenv');
 const cors=require("cors");
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 dotenv.config()
 
 const uri = process.env.MONGODB_URI;
@@ -37,6 +37,13 @@ async function run() {
     // creating api for getting data form database
     app.get('/destination',async(req,res)=>{
         const result= await destinationCollection.find().toArray();
+       res.json(result)
+    })
+
+    // 
+     app.get('/destination/:id',async(req,res)=>{
+        const {id}= req.params;
+        const result=await destinationCollection.findOne({_id:new ObjectId(id)})
         console.log(result);
        res.json(result)
     })
