@@ -68,7 +68,7 @@ async function run() {
 
 
         // delete destination form database 
-         app.delete('/destination/:id', async (req, res) => {
+        app.delete('/destination/:id', async (req, res) => {
             const { id } = req.params;
             const result = await destinationCollection.deleteOne({ _id: new ObjectId(id) })
             res.json(result)
@@ -77,20 +77,33 @@ async function run() {
 
         // sending booking data to database
         app.post('/booking', async (req, res) => {
-            const bookingData=req.body;
+            const bookingData = req.body;
             const result = await bookingCollection.insertOne(bookingData)
             res.json(result)
             console.log(result);
-            
+
         })
 
 
         // getting booking data form database by who booked 
-         app.get('/booking/:userId', async (req, res) => {
-            const {userId}= req.params;
-            const result = await bookingCollection.find({userId:userId}).toArray();
+        app.get('/booking/:userId', async (req, res) => {
+            const { userId } = req.params;
+            const result = await bookingCollection.find({ userId: userId }).toArray();
             res.json(result)
         })
+
+
+        // deleting the booking data 
+        app.delete('/booking/:id', async (req, res) => {
+            const { id } = req.params;
+            const result = await bookingCollection.deleteOne({ _id: new ObjectId(id) })
+            res.json(result)
+        })
+
+
+
+
+
 
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");

@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { CalendarDays, MapPin, Eye, Trash2, } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
+import DeleteBooking from "../components/DeleteBooking";
 
 const BookingCard = async () => {
   const session = await auth.api.getSession({
@@ -12,7 +13,7 @@ const BookingCard = async () => {
 
   const res = await fetch(`http://localhost:5000/booking/${user?.id}`);
   const booking = await res.json();
-  console.log(booking);
+
   return (
     <div className="min-h-screen bg-[#fafafa] px-4 py-10">
       <div className="mx-auto max-w-6xl">
@@ -27,8 +28,7 @@ const BookingCard = async () => {
 
               <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-[260px_1fr]">
                 <div className="relative h-50 overflow-hidden rounded-sm">
-                  <Image src={e.imageUrl} alt={e.destinationName} fill className="object-cover"
-                  />
+                  <Image src={e.imageUrl} alt={e.destinationName} fill className="object-cover"/>
                 </div>
 
                 <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
@@ -55,16 +55,11 @@ const BookingCard = async () => {
                       </div>
 
                     </div>
-
                     <h3 className="mt-5 text-3xl font-bold text-cyan-500"> ${e.price} </h3>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <button
-                      className="flex items-center gap-2 rounded-sm border border-red-300 px-5 py-2.5 text-sm font-medium text-red-500 transition hover:bg-red-50" >
-                      <Trash2 size={16} /> Cancel
-                    </button>
-
+                    <DeleteBooking e={e}/>
                     <button className="flex items-center gap-2 rounded-sm bg-cyan-500 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-cyan-600" >
                       <Eye size={16} /> View
                     </button>
