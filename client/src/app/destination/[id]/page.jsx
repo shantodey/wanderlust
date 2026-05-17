@@ -1,16 +1,17 @@
 
-import { Button, Card, Input } from '@heroui/react';
+
 import { ArrowLeft, Trash2, Star, Calendar, Check, ArrowRight, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { EditModel } from '@/app/components/EditModel';
 import DeleteDestination from '@/app/components/DeleteDestination';
+import BookingCard from '@/app/components/BookingCard';
 
 const DestinationDetailPage = async ({params}) => {
     const {id}=await params
     const res=await fetch(`http://localhost:5000/destination/${id}`);
     const destinations=await res.json()
-    const {imageUrl, destinationName, country, price, duration }=destinations
+    const {imageUrl, destinationName, country, duration }=destinations
     
     return (
         <div className="max-w-6xl mx-auto px-4 py-6 font-sans text-gray-800">
@@ -68,33 +69,7 @@ const DestinationDetailPage = async ({params}) => {
                     </div>
                 </div>
                 <div>
-                    <Card className="border border-gray-100 shadow-sm p-2 rounded-xl bg-white">
-                        <Card.Content className="flex flex-col gap-5">
-                            <div>
-                                <span className="text-xs text-gray-500 block mb-1">Starting from</span>
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-bold text-sky-500">${price}</span>
-                                    <span className="text-xs text-gray-400">per person</span>
-                                </div>
-                            </div>
-                            <Input type="text" defaultValue="05/15/2026" variant="bordered" radius="sm" className="w-full font-medium" />
-                            <Button color="primary" size="lg" className="w-full bg-sky-500 text-white font-medium rounded-md py-6 text-sm">
-                             Book Now  <ArrowRight size={18} /> 
-                            </Button>
-                            <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
-                                {[
-                                    "Free cancellation up to 7 days",
-                                    "Travel insurance included",
-                                    "24/7 customer support"
-                                ].map((policy, index) => (
-                                    <div key={index} className="flex items-center gap-2 text-xs  font-medium">
-                                        <Check size={14} className='text-emerald-600' />
-                                        <span>{policy}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </Card.Content>
-                    </Card>
+                    <BookingCard destinations={destinations}/>
                 </div>
             </div>
         </div>

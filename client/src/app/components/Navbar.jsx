@@ -5,13 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Navbar = () => {
-    const {
-        data: session,
-        isPending, //loading state
-        error, //error object
-        refetch //refetch the session
-    } = authClient.useSession()
+    const {data: session} = authClient.useSession()
     const user = session?.user;
+    
     const handleSingOut=async()=>{
         await authClient.signOut();
     }

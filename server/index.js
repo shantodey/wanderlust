@@ -33,6 +33,7 @@ async function run() {
         // creating a database
         const db = client.db("wanderlust");
         const destinationCollection = db.collection("destination");
+        const bookingCollection = db.collection("booking");
 
         // creating api for getting data form database
         app.get('/destination', async (req, res) => {
@@ -51,8 +52,6 @@ async function run() {
         app.patch('/destination/:id', async (req, res) => {
             const { id } = req.params;
             const updatedData = req.body;
-            console.log(updatedData);
-
             const result = await destinationCollection.updateOne(
                 { _id: new ObjectId(id) },
                 { $set: updatedData }
@@ -63,10 +62,7 @@ async function run() {
         // sendign data to server
         app.post('/destination', async (req, res) => {
             const destinationData = req.body;
-            console.log(destinationData);
-
             const result = await destinationCollection.insertOne(destinationData)
-
             res.json(result)
         })
 
@@ -79,7 +75,14 @@ async function run() {
         })
 
 
-
+        // sending booking data to database
+        app.post('/booking', async (req, res) => {
+            const bookingData=req.body;
+            const result = await bookingCollection.insertOne(bookingData)
+            res.json(result)
+            console.log(result);
+            
+        })
 
 
         await client.db("admin").command({ ping: 1 });

@@ -8,11 +8,7 @@ const Banner = () => {
           Discover Your <br /> Next Adventure
         </h1>
 
-        <p className="text-2xl">
-          Explore breathtaking destinations and create unforgettable memories
-          with our curated travel experiences.
-        </p>
-
+        <p className="text-2xl"> Explore breathtaking destinations and create unforgettable memories with our curated travel experiences.</p>
         <div className="flex gap-5">
           <button className="uppercase bg-cyan-500 px-5 py-3 cursor-pointer">
             Explore Now

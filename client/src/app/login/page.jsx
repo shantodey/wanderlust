@@ -3,7 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Button, Form, Input, Label, TextField, Card, Checkbox, Link } from "@heroui/react";
 import { Mail, Lock } from "lucide-react";
-
+import { createAuthClient } from "better-auth/client";
 const LogInPage = () => {
     const onLogIn = async (e) => {
         e.preventDefault()
@@ -21,9 +21,13 @@ const LogInPage = () => {
         if (error) {
             alert(error.message)
         }
-        // scd@gmail.com
-        // shantodeY4762
-    }
+    };
+    const authClient = createAuthClient();
+    const signIn = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
     return (
         <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-4">
             <div className="text-center mb-8">
@@ -96,6 +100,7 @@ const LogInPage = () => {
                     </div>
 
                     <Button
+                        onClick={signIn}
                         variant="bordered"
                         radius="none"
                         className="w-full bg-white border border-zinc-200 py-6 text-zinc-700 font-medium hover:bg-zinc-50 flex items-center justify-center gap-2"
