@@ -3,6 +3,7 @@ import { authClient } from '@/lib/auth-client';
 import { Button, Card, Input, DateField, Label } from '@heroui/react';
 import { Check, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 const BookingCard = ({ destinations }) => {
     const { price, _id, country,destinationName,imageUrl } = destinations;
     const [departureDate, setDeuprtureDate] = useState(null);
@@ -14,8 +15,8 @@ const BookingCard = ({ destinations }) => {
         // collecting data 
         const bookingData = {
             userId: user?.id,
-            userImg: user.image,
-            userName: user.name,
+            userImg: user?.image,
+            userName: user?.name,
             destinationsId: _id,
             destinationName,
             price,
@@ -31,7 +32,7 @@ const BookingCard = ({ destinations }) => {
             body:JSON.stringify(bookingData)
         })
         const data= await res.json()
-        console.log(data);
+        toast.success("You Sucessfully Booked ",destinationName)
         
     }
 

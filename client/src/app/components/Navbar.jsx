@@ -24,7 +24,7 @@ const Navbar = () => {
                     <ul className="hidden sm:flex gap-8 font-medium text-gray-600">
                         <li><Link href={'/'} className="hover:text-black transition-colors">Home</Link></li>
                         <li><Link href={"/destination"} className="hover:text-black transition-colors">Destinations</Link></li>
-                        <li><Link href="/" className="hover:text-black transition-colors">My Bookings</Link></li>
+                        <li><Link href={"/my-bookings"} className="hover:text-black transition-colors">My Bookings</Link></li>
                         <li><Link href={"/add-destination"} className="hover:text-black transition-colors">ADD Destinations</Link></li>
                     </ul>
                     <div className="shrink-0 mx-auto sm:mx-0">
