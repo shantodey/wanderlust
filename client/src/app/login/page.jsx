@@ -1,9 +1,29 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Button, Form, Input, Label, TextField, Card, Checkbox, Link } from "@heroui/react";
 import { Mail, Lock } from "lucide-react";
 
 const LogInPage = () => {
+    const onLogIn = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.signIn.email({
+            email: user.email,
+            password: user.password,
+            callbackURL: "/dashboard"
+        });
+        if (data) {
+            redirect('/')
+        }
+        if (error) {
+            alert(error.message)
+        }
+        // scd@gmail.com
+        // shantodeY4762
+    }
     return (
         <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-4">
             <div className="text-center mb-8">
@@ -12,7 +32,7 @@ const LogInPage = () => {
             </div>
 
             <Card className="w-full max-w-md bg-white p-8 border border-zinc-100 shadow-sm rounded-none">
-                <Form className="flex flex-col gap-5">
+                <Form onSubmit={onLogIn} className="flex flex-col gap-5">
                     <TextField
                         isRequired
                         name="email"
@@ -21,8 +41,8 @@ const LogInPage = () => {
                         className="gap-1.5"
                     >
                         <Label className="text-zinc-900 font-semibold text-sm">Email Address</Label>
-                        <Input 
-                            placeholder="Enter your email" 
+                        <Input
+                            placeholder="Enter your email"
                             startContent={<Mail className="text-zinc-400 w-4 h-4 shrink-0" />}
                             variant="flat"
                             radius="none"
@@ -38,8 +58,8 @@ const LogInPage = () => {
                         className="gap-1.5"
                     >
                         <Label className="text-zinc-900 font-semibold text-sm">Password</Label>
-                        <Input 
-                            placeholder="Enter your password" 
+                        <Input
+                            placeholder="Enter your password"
                             startContent={<Lock className="text-zinc-400 w-4 h-4 shrink-0" />}
                             variant="flat"
                             radius="none"
@@ -48,8 +68,8 @@ const LogInPage = () => {
                     </TextField>
 
                     <div className="flex items-center justify-between w-full text-sm">
-                        <Checkbox 
-                            radius="none" 
+                        <Checkbox
+                            radius="none"
                             classNames={{
                                 label: "text-zinc-500 text-sm selection:bg-transparent"
                             }}
@@ -61,8 +81,8 @@ const LogInPage = () => {
                         </Link>
                     </div>
 
-                    <Button 
-                        type="submit" 
+                    <Button
+                        type="submit"
                         radius="none"
                         className="w-full bg-[#13a3ca] text-white py-6 font-medium hover:bg-[#108dae] transition-colors mt-2"
                     >
@@ -75,8 +95,8 @@ const LogInPage = () => {
                         <div className="grow border-t border-zinc-200"></div>
                     </div>
 
-                    <Button 
-                        variant="bordered" 
+                    <Button
+                        variant="bordered"
                         radius="none"
                         className="w-full bg-white border border-zinc-200 py-6 text-zinc-700 font-medium hover:bg-zinc-50 flex items-center justify-center gap-2"
                     >

@@ -1,7 +1,20 @@
+"use client"
+import { authClient } from '@/lib/auth-client';
+import { Avatar, Button } from "@heroui/react";
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Navbar = () => {
+    const {
+        data: session,
+        isPending, //loading state
+        error, //error object
+        refetch //refetch the session
+    } = authClient.useSession()
+    const user = session?.user;
+    const handleSingOut=async()=>{
+        await authClient.signOut();
+    }
     return (
         <div className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
             <div className="container mx-auto px-4">
@@ -23,10 +36,24 @@ const Navbar = () => {
                             <Image src="/assets/mainlogo.png" width={162} height={24} alt="Website Logo" priority />
                         </Link>
                     </div>
-                    <ul className="hidden sm:flex gap-8 font-medium text-gray-600">
+                    <ul className="hidden sm:flex items-center gap-8 font-medium text-gray-600">
                         <li><Link href={'/'} className="hover:text-black transition-colors">Profile</Link></li>
-                        <li><Link href={"/login" }className="hover:text-black transition-colors">Login</Link></li>
-                        <li><Link href={"/singup"} className="hover:text-black transition-colors">Singup</Link></li>
+                        {user ?
+                            <>
+                                <li>
+                                    <Avatar>
+                                        <Avatar.Image alt="John Doe" src={user?.image}/>
+                                        <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                    </Avatar>
+                                </li>
+                                <li>< Button onClick={handleSingOut} variant="outline">Sing Out</Button></li>
+                            </>
+                            :
+                            <>
+                                <li><Link href={"/login"} className="hover:text-black transition-colors">Login</Link></li>
+                                <li><Link href={"/singup"} className="hover:text-black transition-colors">Singup</Link></li>
+                            </>
+                        }
                         <li><Link href="/" className="hover:text-black transition-colors">Admin</Link></li>
                     </ul>
 
