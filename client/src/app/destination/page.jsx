@@ -2,7 +2,17 @@ import React from 'react';
 import TravelCard from '../components/TravelCard';
 
 const DestinationPage = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination`);
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/destination`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    if (!res.ok) {
+        throw new Error(`Failed: ${res.status}`);
+    }
+
     const destination = await res.json();
 
 
@@ -18,8 +28,8 @@ const DestinationPage = async () => {
 
                 </div>
                 <div className='grid grid-cols-3'>
-                    {destination.map(trip=>
-                        <TravelCard key={trip._id} trip={trip}/>
+                    {destination.map(trip =>
+                        <TravelCard key={trip._id} trip={trip} />
                     )}
                 </div>
             </div>
