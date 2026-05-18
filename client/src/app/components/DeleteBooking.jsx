@@ -5,7 +5,7 @@ const DeleteBooking = ({e}) => {
 
     
     const handelBookingDelete= async()=>{
-        const res= await fetch(`http://localhost:5000/booking/${e._id}`,{
+        const res= await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${e._id}`,{
             method:'DELETE',
             headers:{
                 'content-type':'application/json'
