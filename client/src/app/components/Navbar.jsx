@@ -33,7 +33,7 @@ const Navbar = () => {
                         </Link>
                     </div>
                     <ul className="hidden sm:flex items-center gap-8 font-medium text-gray-600">
-                        <li><Link href={'/'} className="hover:text-black transition-colors">Profile</Link></li>
+                        <li><Link href={'/profile'} className="hover:text-black transition-colors">Profile</Link></li>
                         {user ?
                             <>
                                 <li>

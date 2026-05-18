@@ -47,7 +47,7 @@ const LogInPage = () => {
                         <Label className="text-zinc-900 font-semibold text-sm">Email Address</Label>
                         <Input
                             placeholder="Enter your email"
-                            startContent={<Mail className="text-zinc-400 w-4 h-4 shrink-0" />}
+                            startcontent={<Mail className="text-zinc-400 w-4 h-4 shrink-0" />}
                             variant="flat"
                             radius="none"
                             className="bg-zinc-50 border border-zinc-200"
@@ -64,7 +64,7 @@ const LogInPage = () => {
                         <Label className="text-zinc-900 font-semibold text-sm">Password</Label>
                         <Input
                             placeholder="Enter your password"
-                            startContent={<Lock className="text-zinc-400 w-4 h-4 shrink-0" />}
+                            startcontent={<Lock className="text-zinc-400 w-4 h-4 shrink-0" />}
                             variant="flat"
                             radius="none"
                             className="bg-zinc-50 border border-zinc-200"
