@@ -13,7 +13,7 @@
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "expres": "^0.0.5",
+    "express": "^4.19.2",
     "jose-cjs": "^6.2.3",
     "mongodb": "^7.2.0"
   }
