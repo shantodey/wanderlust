@@ -101,7 +101,7 @@ async function run() {
 
 
         // sending booking data to database
-        app.post('/booking', async (req, res) => {
+        app.post('/booking', verifyToken, async (req, res) => {
             const bookingData = req.body;
             const result = await bookingCollection.insertOne(bookingData)
             res.json(result)
@@ -111,7 +111,7 @@ async function run() {
 
 
         // getting booking data form database by who booked 
-        app.get('/booking/:userId', async (req, res) => {
+        app.get('/booking/:userId', verifyToken, async (req, res) => {
             const { userId } = req.params;
             const result = await bookingCollection.find({ userId: userId }).toArray();
             res.json(result)

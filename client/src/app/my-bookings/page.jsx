@@ -9,9 +9,15 @@ const BookingCard = async () => {
     headers: await headers()
   })
   const user = session?.user;
+  const { token } = await auth.api.getToken({
+    headers: await headers()
+  })
 
-
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}`);
+  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
   const booking = await res.json();
 
   return (
@@ -28,7 +34,7 @@ const BookingCard = async () => {
 
               <div className="grid grid-cols-1 gap-5 p-4 md:grid-cols-[260px_1fr]">
                 <div className="relative h-50 overflow-hidden rounded-sm">
-                  <Image src={e.imageUrl} alt={e.destinationName} fill className="object-cover"/>
+                  <Image src={e.imageUrl} alt={e.destinationName} fill className="object-cover" />
                 </div>
 
                 <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
@@ -42,11 +48,11 @@ const BookingCard = async () => {
                     <div className="mt-4 space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <CalendarDays size={15} />
-                        <span>{new Date(e.departureDat).toLocaleDateString('en-US',{
-                          year:"numeric",
-                          month:"long",
-                          day:"numeric"
-                        }) }</span>
+                        <span>{new Date(e.departureDat).toLocaleDateString('en-US', {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric"
+                        })}</span>
                       </div>
 
                       <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -59,7 +65,7 @@ const BookingCard = async () => {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <DeleteBooking e={e}/>
+                    <DeleteBooking e={e} />
                     <button className="flex items-center gap-2 rounded-sm bg-cyan-500 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-cyan-600" >
                       <Eye size={16} /> View
                     </button>
