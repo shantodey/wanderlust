@@ -7,6 +7,7 @@ import Link from 'next/link';
 const Navbar = () => {
     const {data: session} = authClient.useSession()
     const user = session?.user;
+    console.log(user);
     
     const handleSingOut=async()=>{
         await authClient.signOut();

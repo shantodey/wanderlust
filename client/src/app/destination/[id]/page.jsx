@@ -1,15 +1,26 @@
 
 
-import { ArrowLeft, Trash2, Star, Calendar, Check, ArrowRight, MapPin } from 'lucide-react';
+import { ArrowLeft, Star, Calendar, Check, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { EditModel } from '@/app/components/EditModel';
 import DeleteDestination from '@/app/components/DeleteDestination';
 import BookingCard from '@/app/components/BookingCard';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const DestinationDetailPage = async ({params}) => {
-    const {id}=await params
-    const res=await fetch(`http://localhost:5000/destination/${id}`);
+    const {id}=await params;
+    const {token}=await auth.api.getToken({
+        headers:await headers()
+    })
+    console.log(token);
+    
+    const res=await fetch(`http://localhost:5000/destination/${id}`,{
+        headers:{
+            authorization:`Bearer ${token}`
+        }
+    });
     const destinations=await res.json()
     const {imageUrl, destinationName, country, duration }=destinations
     
@@ -25,7 +36,7 @@ const DestinationDetailPage = async ({params}) => {
                 </div>
             </div>
             <div className="w-full h-100 rounded-xl overflow-hidden mb-8">
-                <Image width={1280} height={580} src={imageUrl}
+                <Image width={1280} height={580} src={imageUrl} loading="eager"
                     alt={destinationName} className="w-full h-full object-cover" />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -7,6 +7,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const { createRemoteJWKSet, jwtVerify } = require("jose-cjs");
 dotenv.config()
 
 const uri = process.env.MONGODB_URI;
@@ -25,9 +26,33 @@ const client = new MongoClient(uri, {
     }
 });
 
+
+// verify token for user data 
+const JWKS = createRemoteJWKSet(
+    new URL('http://localhost:3000/api/auth/jwks')
+)
+const verifyToken = async (req, res, next) => {
+    const authHeader = req?.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ massage: " Unauthorized" })
+    }
+    const token = authHeader.split(" ")[1];
+    if (!token) {
+        return res.status(401).json({ massage: " Unauthorized" })
+    }
+    try{
+        const { payload } = await jwtVerify(token,JWKS)
+        console.log(payload);
+         next()
+    }catch{
+        return res.status(403).json({ massage: " Forbidden" })
+    }
+    
+   
+}
+
 async function run() {
     try {
-
         await client.connect();
 
         // creating a database
@@ -42,11 +67,11 @@ async function run() {
         })
 
         // getting data form database by id
-        app.get('/destination/:id', async (req, res) => {
+        app.get('/destination/:id', verifyToken, async (req, res) => {
             const { id } = req.params;
             const result = await destinationCollection.findOne({ _id: new ObjectId(id) })
             res.json(result)
-        })
+        });
 
         // edting the data
         app.patch('/destination/:id', async (req, res) => {
@@ -57,14 +82,14 @@ async function run() {
                 { $set: updatedData }
             )
             res.json(result)
-        })
+        });
 
         // sendign data to server
         app.post('/destination', async (req, res) => {
             const destinationData = req.body;
             const result = await destinationCollection.insertOne(destinationData)
             res.json(result)
-        })
+        });
 
 
         // delete destination form database 
@@ -72,7 +97,7 @@ async function run() {
             const { id } = req.params;
             const result = await destinationCollection.deleteOne({ _id: new ObjectId(id) })
             res.json(result)
-        })
+        });
 
 
         // sending booking data to database

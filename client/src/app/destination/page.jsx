@@ -4,7 +4,7 @@ import TravelCard from '../components/TravelCard';
 const DestinationPage = async () => {
     const res = await fetch('http://localhost:5000/destination');
     const destination = await res.json();
-    console.log(destination);
+
 
     return (
         <section>
