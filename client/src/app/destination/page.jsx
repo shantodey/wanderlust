@@ -1,6 +1,11 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import TravelCard from '../components/TravelCard';
 
+const TravelCard = dynamic(() => import("../components/TravelCard"),
+    {
+        loading: () => <p>Loading...</p>,
+    }
+)
 const DestinationPage = async () => {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/destination`,
@@ -20,7 +25,6 @@ const DestinationPage = async () => {
         <section>
             <div className="container mx-auto">
                 <div>
-
                     <h1>Explore All Destinations</h1>
                     <p>Find your perfect travel experience from our curated collection</p>
                 </div>

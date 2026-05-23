@@ -3,8 +3,9 @@
 import { Josefin_Sans} from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+const Footer =dynamic(()=> import("./components/Footer"))
 import { Toaster } from "react-hot-toast";
+import dynamic from "next/dynamic";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],

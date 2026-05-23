@@ -4,10 +4,7 @@ import { ArrowRight } from "lucide-react";
 const CiaSection = () => {
     return (
         <div className="relative bg-[url('/assets/CTA.png')] bg-cover bg-center text-white text-center">
-            {/* Dark overlay */}
             <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-black" />
-
-            {/* Content */}
             <div className="relative z-10 flex flex-col items-center gap-3 py-50">
                 <h2 className="text-4xl font-semibold">Ready To Start Your Journey?</h2>
                 <p className="text-sm text-white/80">Join thousands of travelers who have discovered the world with us</p>

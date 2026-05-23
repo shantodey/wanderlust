@@ -5,7 +5,7 @@ import { Trash2 } from 'lucide-react';
 import { useRouter } from "next/navigation";
 const DeleteDestination = ({ destinations }) => {
     const { _id, destinationName } = destinations;
-const router = useRouter(); // ✅ useRouter ইনিশিয়েট করা হলো
+    const router = useRouter(); // ✅ useRouter ইনিশিয়েট করা হলো
 
     const handelDelete = async () => {
         try {
@@ -19,10 +19,10 @@ const router = useRouter(); // ✅ useRouter ইনিশিয়েট করা 
             if (res.ok) {
                 const data = await res.json();
                 console.log("Deleted successfully:", data);
-                
+
                 // রিফ্রেশ এবং রিডাইরেক্ট করা
                 router.push('/destination');
-                router.refresh(); 
+                router.refresh();
             } else {
                 console.error("Failed to delete");
             }
